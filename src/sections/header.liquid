@@ -1,0 +1,195 @@
+<style>
+  .site-header__logo img {
+    max-width: {{ section.settings.logo_max_width | escape | default: '180' | remove: 'px' | append: 'px' }};
+  }
+
+  @media screen and (max-width: 768px) {
+    .site-header__logo img {
+      max-width: 100%;
+    }
+  }
+</style>
+
+<div data-section-id="{{ section.id }}" data-section-type="header-section" data-template="{{ template.name }}">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <header class="site-header" role="banner">
+        <div class="desktop-navbar js-color-change main-navbar nav-bp-down-display-none-imp">
+		      <div class="desktop-navbar-header">
+
+          {% comment %} Right Menu {% endcomment %}
+              <div class="header-right">
+                  <!-- SEARCH SECTION -->
+                  <div class="search-sec site-header__search desktop-search-trigger desktop-navbar-nav-icon" data-body-class="search-overlay-open">
+                    <span class="hidden-tablet">SEARCH</span>
+                    <i class="visible-tablet">{% include 'icon-search' %}</i>
+                  </div>
+                  <!-- ICON SECTION -->
+                  <div class="header-right-icon-sec">
+                      <nav class="grid__item large--two-thirds large--text-right medium-down--hide" role="navigation">
+                        <ul class="site-nav" id="AccessibleNav">
+                            <li class="nav-list-level-1-item" >
+                                <div class="desktop-account-trigger desktop-navbar-nav-pillar">
+                                    <a href="/account" class=" desktop-navbar-account-link desktop-navbar-nav-icon desktop-navbar-nav-pillar">
+                                        {% if customer %}
+                                            {% include 'icon-user' %}	
+                                        {%- else -%}
+                                            {% include 'icon-user' %}	
+                                        {% endif %}
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="site-nav__item site-nav__item--compressed">
+                              <a href="/cart" class="site-nav__link site-nav__link--icon cart-link js-drawer-open-button-right" aria-controls="CartDrawer">
+                                <span class="icon-fallback-text">
+                                  <span class="icon icon-cart" aria-hidden="true"></span>
+                                  <span class="fallback-text">{{ 'layout.cart.title' | t }}</span>
+                                </span>
+                                <span class="cart-link__bubble{% if cart.item_count > 0 %} cart-link__bubble--visible{% endif %}"></span>
+                              </a>
+                            </li>
+
+                            <li class="nav-list-level-1-item">
+                                <div class="desktop-navbar-nav-icon desktop-navbar-nav-pillar js-body-add-class" >
+                                    <a href="/pages/wishlist">
+                                        {% include 'icon-heart' %}
+                                    </a>
+                                </div>
+                            </li>
+
+                        </ul>
+                      </nav>
+                  </div>
+              </div>
+            
+          <!-- HAMBURGER MENU -->
+            <div class="toggle_sec">
+                <span class="toggle">
+                    <div class="menu_open_btn hide-on-active sc-kpOJdX Qzjki" >
+                        {% include 'icon-hamburger' %}  
+                    </div>
+                    <div class="menu_close_btn" >
+                        {% include 'icon-close' %}  
+                    </div>
+                </span>
+               &nbsp;SHOP
+            </div>
+            {% if settings.banner_enable %}
+              <div class="desktop-navbar-banner js-color-change">
+                {{ settings.desktop_banner_text }}
+              </div>
+            {%- else -%}
+            {% endif %}
+            {% comment %}
+              Logo
+            {% endcomment %}
+            {%- capture desktop_logo_link -%}
+              {%- if template == 'index' -%}
+              /
+              {%- else -%}
+              /
+              {%- endif -%}
+            {%- endcapture -%}
+
+            <div class="desktop-navbar-nav-logo position-relative">
+                <a href="{{desktop_logo_link}}" class="">
+                  {% include 'icon-logo-white' %}
+                </a>
+                <span class="crt js-carrot-trigger"></span>
+            </div>
+          </div>
+          <div class="desktop-navbar-nav">
+              <div class="nav-container">
+                <div class="position-relative text-align-center navbar-left-sec">
+                  <div class="desktop-navbar-nav-list-center desktop-navbar-nav-list nav-list-level-1 clearfix">
+                    {% for link in linklists[section.settings.link_list_main].links %}
+                      {% if link.links == blank %}
+                        <div class="no-child nav-list-level-1-item desktop-navbar-nav-dropdown dropdown">
+                          <a href="{{ link.url }}" class="desktop-navbar-nav-pillar desktop-navbar-nav-dropdown-toggle dropdown-toggle js-dropdown-click display-block"><span class="{{sub_linklist_handle}} animated-underline white">{{ link.title}}</span>
+                          </a>
+                        </div>
+                      {% endif %}
+                      {% if link.links != blank %}
+                        <div class="has-child nav-list-level-1-item desktop-navbar-nav-dropdown dropdown">
+                          <a href="{{ link.url }}" class="desktop-navbar-nav-pillar desktop-navbar-nav-dropdown-toggle dropdown-toggle js-dropdown-click display-block"><span class="{{sub_linklist_handle}} animated-underline white">{{ link.title}}</span>
+                          </a>
+                          <ul class="children-nav">
+                            {% for link in link.links %}
+                              <li class="no-child nav-list-level-1-item desktop-navbar-nav-dropdown dropdown">
+                                <a href="{{ link.url }}" class="desktop-navbar-nav-pillar desktop-navbar-nav-dropdown-toggle dropdown-toggle js-dropdown-click display-block"><span class="{{sub_linklist_handle}} animated-underline white">{{ link.title}}</span>
+                                </a>
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+                {% comment %} Nav Right Section {% endcomment %}
+                <div class="nav-feature-collection">
+                  <h3>Feature Collections</h3>
+                  <ul class="feature-collection-items">
+                  {%- assign product1 = all_products[section.settings.feature_top_product] -%}
+                  {%- assign product2 = all_products[section.settings.feature_top_product1] -%}
+                    <li class="feature-collection-item">
+                      <figure class="feature-collection-img">
+                      <img src="{{ product1 | img_url:'master' }}" alt="{{ product1.title }}"/>
+                      </figure>
+                      <a href="{{ product1.url }}">{{ product1.title }}</a>
+                    </li>
+                    <li class="feature-collection-item">
+                    <figure class="feature-collection-img">
+                      <img src="{{ product2 | img_url:'master' }}" alt="{{ product2.title }}"/>
+                      </figure>
+                      <a href="{{ product2.url }}">{{ product2.title }}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+      </header>
+    </div>
+  </div>
+</div>
+{% include 'search' %}
+
+
+{% schema %}
+    {
+        "name": "Header Section",
+        "class": "header",
+        "settings":[
+            {
+                "type":"checkbox",
+                "id":"enable",
+                "label":"Enable",
+                "default":  true
+            },
+            {
+                "type": "product",
+                "id": "feature_top_product",
+                "label": "Featured Product"
+            },
+            {
+                "type": "product",
+                "id": "feature_top_product1",
+                "label": "Featured Product"
+            },
+            {
+                "type":"link_list",
+                "id":"link_list_main",
+                "label":"Menu",
+                "info": "Select menu item under which the item will be shown in dropdown"
+            }
+        ],
+        "presets": [
+        {
+            "category": "Header Section",
+            "name": "Header Section"
+        }
+        ]
+    }
+{% endschema %}

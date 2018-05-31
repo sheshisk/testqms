@@ -1,0 +1,148 @@
+
+{% comment %}
+	Desktop
+{% endcomment %}
+<header class="site-header">
+	<div class="desktop-navbar js-color-change main-navbar nav-bp-down-display-none-imp">
+		<div class="desktop-navbar-header">
+        {% comment %}
+				Right
+			{% endcomment %}
+            <div class="header-right">
+                <!-- SEARCH SECTION -->
+                <div class="search-sec site-header__search desktop-search-trigger desktop-navbar-nav-icon" data-body-class="search-overlay-open">
+                    SEARCH
+                </div>
+                 <!-- ICON SECTION -->
+                <div class="header-right-icon-sec">
+                    <ul class="desktop-navbar-nav-list-right navbar-nav-list-right desktop-navbar-nav-list nav-list-level-1 clearfix">
+                        <li class="nav-list-level-1-item" >
+                            <div class="desktop-account-trigger desktop-navbar-nav-pillar">
+                                <a href="/account" class=" desktop-navbar-account-link desktop-navbar-nav-icon desktop-navbar-nav-pillar">
+                                        {% if customer %}
+                                            Account
+                                        {%- else -%}
+                                            {% include 'icon-user' %}	
+                                        {% endif %}
+                                </a>
+
+                            </div>
+                        </li>
+                        {% unless template == 'cart' %}
+
+
+                        <li class="nav-list-level-1-item desktop-cart-link" data-cart-view="data-cart-view">
+                            <div class="desktop-mini-cart-trigger desktop-navbar-nav-pillar js-body-add-class" data-body-class="mini-cart-open">
+                                <a href="#" class="desktop-navbar-nav-pillar ">
+                                {% include 'icon-cart' %}
+                                <span class="mini-cart-count" rv-text="cart.item_count" style="padding-lef: 5px"></span>
+                                </a>
+                            </div>
+                        </li>
+
+                        {% endunless %}
+
+                        <li class="nav-list-level-1-item">
+                            <div class="desktop-search-trigger desktop-navbar-nav-icon desktop-navbar-nav-pillar js-body-add-class" data-body-class="search-overlay-open">
+                                <a href="/pages/wishlist">
+                                	{% include 'icon-heart' %}
+								</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- HAMBURGER MENU -->
+            <div class="toggle_sec">
+               <span class="toggle">
+                   <div class="menu_open_btn hide-on-active sc-kpOJdX Qzjki" >
+                   {% include 'icon-hamburger' %}  
+                   </div>
+                     <div class="menu_close_btn" >
+                       {% include 'icon-close' %}  
+                   </div>
+               </span>
+               &nbsp;SHOP
+           </div>
+			{% if settings.banner_enable %}
+				<div class="tetetet desktop-navbar-banner js-color-change">
+					{{ settings.desktop_banner_text }}
+				</div>
+			{%- else -%}
+			{% endif %}
+			{% comment %}
+				Logo
+			{% endcomment %}
+            {%- capture desktop_logo_link -%}
+	        {%- if template == 'index' -%}
+	        /
+	        {%- else -%}
+	        /
+	        {%- endif -%}
+	        {%- endcapture -%}
+
+			<div class="desktop-navbar-nav-logo position-relative">
+				<a href="{{desktop_logo_link}}" class="">
+					{% include 'icon-logo-white' %}
+				</a>
+	            <span class="crt js-carrot-trigger"></span>
+			</div>
+		</div>
+		<div class="desktop-navbar-nav">
+			<div class="nav-container">
+				<div class="position-relative text-align-center navbar-left-sec">
+					<div class="desktop-navbar-nav-list-center desktop-navbar-nav-list nav-list-level-1 clearfix">
+						{% for link in linklists[section.settings.header_inner_link_list_main].links %}
+							{% if link.links == blank %}
+								<div class="no-child nav-list-level-1-item desktop-navbar-nav-dropdown dropdown">
+									<a href="{{ link.url }}" class="desktop-navbar-nav-pillar desktop-navbar-nav-dropdown-toggle dropdown-toggle js-dropdown-click display-block"><span class="{{sub_linklist_handle}} animated-underline white">{{ link.title}}</span>
+									</a>
+								</div>
+							{% endif %}
+							{% if link.links != blank %}
+								<div class="has-child nav-list-level-1-item desktop-navbar-nav-dropdown dropdown">
+									<a href="{{ link.url }}" class="desktop-navbar-nav-pillar desktop-navbar-nav-dropdown-toggle dropdown-toggle js-dropdown-click display-block"><span class="{{sub_linklist_handle}} animated-underline white">{{ link.title}}</span>
+									</a>
+									<ul class="children-nav">
+										{% for link in link.links %}
+											<li class="no-child nav-list-level-1-item desktop-navbar-nav-dropdown dropdown">
+												<a href="{{ link.url }}" class="desktop-navbar-nav-pillar desktop-navbar-nav-dropdown-toggle dropdown-toggle js-dropdown-click display-block"><span class="{{sub_linklist_handle}} animated-underline white">{{ link.title}}</span>
+												</a>
+											</li>
+										{% endfor %}
+									</ul>
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+				{% comment %} Nav Right Section {% endcomment %}
+				<div class="nav-feature-collection">
+					<h3>Feature Collections</h3>
+					<ul class="feature-collection-items">
+					{%- assign product1 = all_products[section.settings.header_inner_feature_top_product] -%}
+					{%- assign product2 = all_products[section.settings.header_inner_feature_top_product1] -%}
+						<li class="feature-collection-item">
+							<figure class="feature-collection-img">
+							<img src="{{ product1 | img_url:'master' }}" alt="{{ product1.title }}"/>
+							</figure>
+							<a href="{{ product1.url }}">{{ product1.title }}</a>
+						</li>
+						<li class="feature-collection-item">
+						<figure class="feature-collection-img">
+							<img src="{{ product2 | img_url:'master' }}" alt="{{ product2.title }}"/>
+							</figure>
+							<a href="{{ product2.url }}">{{ product2.title }}</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</header>
+
+{% comment %}
+    Search form overlay.
+{% endcomment %}
+{% include 'search' %}

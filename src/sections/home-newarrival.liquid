@@ -1,0 +1,85 @@
+{%- assign collection = collections[section.settings.collection] -%}
+{%- assign product_limit = section.settings.grid | times: 1 -%}
+<!-- Slider Section -->
+<div class="slider-sec">
+  <!-- Slider Left Section -->
+  <div class="slider-heading-sec">
+    {% if section.settings.new_arrival_title %}
+      <h2>{{section.settings.new_arrival_title}}</h2>
+    {% endif %}
+    {% if section.settings.newarrival_subheading %}
+      <p>{{section.settings.newarrival_subheading}}</h2>
+    {% endif %}
+    {% if section.settings.newarrival_link_text != blank and section.settings.newarrival_link != blank %}
+      <a href="{{ section.settings.newarrival_link }}" class="btn-link">
+        {{ section.settings.newarrival_link_text | escape }}
+      </a>
+    {% endif %}
+  </div>
+  <!-- Slider Right Section -->
+  <div class="slider-slide-sec">
+      <div id="content-5" class="content horizontal-images light">
+				<ul class="slider-slide-container">
+            {% for block in section.blocks %}
+              <li><img src="{{ block.settings.newarrival_product_image | img_url: 'master' }}" alt="" /></li>
+            {% endfor %}
+				</ul>
+			</div>
+  </div>
+</div>
+<!-- Slider Section Ends -->
+
+{% schema %}
+  {
+    "name": "Home Meet New Arrival",
+    "class": "index-section meet-new-arrival",
+    "settings": [
+      {
+        "type": "text", 
+        "id": "new_arrival_title",
+        "label": "Heading",
+        "default": "Heading"
+      },
+      {
+        "type": "text",
+        "id": "newarrival_subheading",
+        "label": "Subheading",
+        "default": "subheading goes here"
+      },
+      {
+        "type": "text",
+        "id": "newarrival_link_text",
+        "label": "Button text",
+        "default": "See More"
+      },
+      {
+        "type": "url",
+        "id": "newarrival_link",
+        "label": "Button link",
+        "info": "See More About this collection!"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "text_block",
+        "name": "Products",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "newarrival_product_image",
+            "label": "New Arrival Product Image"
+          },
+          {
+            "type": "product",
+            "id": "newarrival_product",
+            "label": "New Arrival Product"
+          }
+        ]
+      }
+    ],
+    "presets": [{
+      "name": "Home Meet New Arrival",
+      "category": "Home Sections"
+    }]
+  }
+{% endschema %}

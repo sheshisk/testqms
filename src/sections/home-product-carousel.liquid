@@ -1,0 +1,82 @@
+<div class="home-product-carousel">
+  <!-- PRODUCT SLIDER SECTION -->
+  {% for block in section.blocks %}
+  {%- assign product = all_products[block.settings.product_carousel_product] -%}
+
+  {% if product == empty %}
+    {%- assign section_onboarding = true -%}
+  {% endif %}
+ <div>  
+    <div class="product-slider grid grid--no-gutters grid--table">
+      <!-- PRODUCT SLIDER IMAGE -->
+      <div class="grid__item small--one-half">
+        <div class="product-img ">
+          <img src="{{ product | img_url:'master' }}" alt="">
+        </div>
+      </div>
+      <!-- PRODUCT SLIDER DETAIL -->
+      <div class="grid__item small--one-half">
+        <div class="product-detail  ">
+          <div class="home-epic">
+              <span class="icon-sec">
+                {% include 'icon-waveline' %}
+              </span>
+              <h3>{{ product.title }}</h3>
+            <p>{{ product.description }}</p>
+             <a href="{{ product.url }}">SEE MORE</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- PRODUCT SLIDER SECTION -->
+
+ {% endfor %}
+</div>
+
+{% schema %}
+  {
+    "name": "Product Crowsal",
+    "class": "index-section index-section--flush product-carousel",
+    "settings": [
+      {
+        "type": "text",
+        "id": "product_crowsal_title",
+        "label": "Heading",
+        "default": "Title of product section"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "text_block",
+        "name": "Products",
+        "settings": [
+          {
+            "type": "product",
+            "id": "product_carousel_product",
+            "label": "Product"
+          },
+          {
+            "type": "text",
+            "id": "product_carousel_link_text",
+            "label": "Button text",
+            "default": "See More"
+          },
+          {
+            "type": "url",
+            "id": "product_carousel_link",
+            "label": "Button link",
+            "info": "See More About this collection!"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Product Crowsal",
+        "category": "Home Sections"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,58 @@
+{% comment %} {% home_collection %} {% endcomment %}
+{%- assign collection = collections[section.settings.home_collection] -%}
+<div class="home-collection">
+  <div class="grid grid--no-gutters grid--table">     
+      <div class="grid__item small--one-half">
+          <figure>
+            <img src="{{ section.settings.home_collection_image | img_url: 'master' }}" alt="">
+            <figcaption>
+                <a href="{{ collection.url }}">
+                  {% include 'collection-text' %}
+                </a>
+            </figcaption>
+          </figure>  
+      </div>
+      <div class="grid__item small--one-half">
+          <figure>
+              <img src="{{ collection.image | img_url: 'master' }}" alt="{{ collection.title }}">
+              <figcaption>
+                <a href="{{ collection.url }}">
+                  {% include 'collection-text1' %}
+                </a>
+              </figcaption>
+          </figure>
+      </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Home Collection",
+    "class": "index-section index-section--flush home-collection",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "home_collection_image",
+        "label": "Choose collection image"
+      },
+      
+      {
+        "type": "text",
+        "id": "home_title_collection",
+        "label": "Heading",
+        "default": "Title of colection First"
+      },
+      {
+        "id": "home_collection",
+        "type": "collection",
+        "label": "Collection"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Home Collection",
+        "category": "Home Sections"
+      }
+    ]
+  }
+{% endschema %}

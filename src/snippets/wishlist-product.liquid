@@ -1,0 +1,22 @@
+<div class="js-wish-list">
+  {% if customer %}
+    {% assign value = product.selected_or_first_available_variant.id %}
+    {% capture productID %}{{ product.selected_or_first_available_variant.id }}{% endcapture %}
+    {% for tag in customer.tags %}
+      {% capture tagID %}{{ tag }}{% endcapture %}
+      {% if tagID contains productID %}
+        {% capture value %}x{{ tagID }}{% endcapture %}
+      {% endif %}
+      {% if value.size == 0 %}{% assign value = productID %}{% endif %}
+    {% endfor %}
+
+   
+      <form accept-charset="UTF-8" id="wish-list" action="/contact" class="contact-form" method="post">
+        <input name="form_type" type="hidden" value="customer">
+        <input name="utf8" type="hidden" value="✓">
+        <input type="hidden" name="contact[email]" value="{{ customer.email }}"/>
+        <input id="update-me" type="hidden" name="contact[tags]" value="{{ value }}" />
+        <button type="submit">{% include 'icon-heart' %}</button>
+      </form>
+  {% endif %}
+</div>

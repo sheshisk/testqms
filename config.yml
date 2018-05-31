@@ -1,0 +1,6 @@
+development:
+ password: e81b4fcd9e44e0eecac6aa74b46faf89
+ theme_id: 17179279475
+ store: testqms.myshopify.com
+ ignore_files:
+   #- settings_data.json # Uncomment this line to avoid resetting theme settings

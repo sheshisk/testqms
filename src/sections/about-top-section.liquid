@@ -1,0 +1,114 @@
+{% comment %} <!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>Sine Wave</title>
+	<style type="text/css">
+	.letter {
+		font-family: sans-serif;
+		font-size: 40px;
+		font-weight: bold;
+		position: absolute;
+		top: -100px; 
+		left: 0px;
+	}
+	</style>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		var width = $(window).width() - 40;
+		var starttime = new Date().getTime();
+		var letters = document.location.hash ? document.location.hash.substr(1) : 'SINUSWAVE';
+		var elements = $('#elements');
+		for (i = 0; i < letters.length; i++) {
+			$('<div>', {
+				html: letters[i]
+			})
+			.addClass('letter')
+			.appendTo(elements);
+		}
+		
+		function run() {
+			var elapsed = new Date().getTime() - starttime;
+			var pos = elapsed * 0.1;
+			
+			$('div.letter').each(function(index, letter) {
+				var posx = (pos + 50 * index) % width;
+				var posy = 200 + Math.sin(posx / 50) * 50;
+				$(letter).css('left', posx + 'px');
+				$(letter).css('top', posy + 'px');
+			});
+		}
+		
+		setInterval(run, 30);
+	});
+	</script>
+</head>
+<body>
+	<div id="elements"></div>
+</body>
+</html> {% endcomment %}
+
+
+<div class="about-top-section">
+<div class="container">
+	<div class="about-top-img">
+		<img src="{{ 'about-top-img.jpg' | asset_url }}" alt="" />
+		
+	</div>
+	<div class="about-top-text">
+	<strong>
+		Quaker Marine Supply (QMS)<br>
+		is a brand steeped in the<br>
+		grit and pleasures of life<br> on the water.
+	</strong>
+	</div>
+	</div>
+</div>
+
+<div class="text-center width-half p-tb140 centered  mb140">
+	<p>Founded in Philadelphia in 1949 by a Coast Guard veteran named Joe Kadison, QMS has a long
+	history of serving the sea-loving crowd. The company began as an outfitter specializing in marine
+	hardware and clothing. Starting in the sixties, QMS became known for its long-brimmed caps, notably
+	the Swordfish and the Oysterman, with its patent-leather bill. The latter was a favorite of Ernest
+	Hemingway, who wore it duck hunting in Idaho and sport fishing in Cuba and Key West.
+	</p>
+</div>
+
+
+<!-- BACKGROUND IMAGE SECTION -->
+<div class="about-detail-sec bg-img-sec mb170" style="">
+	<div class="container">
+		<div class="wave-text-sec">
+			<p>Designed to withstand the elements, these iconic canvas caps
+prioritized functionality but created an unmistakable look in the
+process. The new QMS—based in Brooklyn, New York—takes a similar
+tack, with clothing that will both turn heads at a pool party and stand
+up to years of saltwater adventuring.</p>
+		</div>
+		<div class="wave-img-sec">
+			<img src="{{ 'about-bg-img1.jpg' | asset_url }}" alt="" />
+		</div>
+	</div>
+</div>
+
+<!-- BACKGROUND IMAGE SECTION -->
+<div class="static-content-sec sec mb140">
+	<div class="container flex-container center-vertically">
+		<div class="static-text-sec">
+			
+				<p>We offer a distinctive, irreverent take on classic East Coast
+	summer style. For those who should be so lucky, QMS suits
+	the aquatic life year-round. We salute the authenticity and
+	tangibility of that life and the quality of experience that it
+	represents, whether those moments close to the water are
+	solitary or shared with friends and family. We try not to take
+	ourselves too seriously. But QMS products and the QMS
+	legacy are another story.</p>
+			
+		</div>
+		<div class="static-img-sec">
+			<img src="{{ 'about-bg-img2.jpg' | asset_url }}" alt="" />
+		</div>
+	</div>
+</div>

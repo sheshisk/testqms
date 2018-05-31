@@ -1,0 +1,49 @@
+
+<div class="home-epic">
+    <span class="icon-sec">
+      {% include 'icon-waveline' %}
+    </span>
+    {% if section.settings.title_epic %}
+      <h3>{{section.settings.title_epic}}</h3>
+    {% endif %}
+    {% if section.settings.text_epic %}
+      <p>{{section.settings.text_epic}}</h2>
+    {% endif %}
+</div>
+
+{% schema %}
+  {
+    "name": "Epic section",
+    "class": "index-section index-section--flush epic-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title_epic",
+        "label": "Heading",
+        "default": "Title of the section"
+      },
+      {
+        "type": "richtext",
+        "id": "text_epic",
+        "label": "Text",
+        "default": "<p>Use overlay text to give your customers insight into your brand. Select imagery and text that relates to your style and story.</p>"
+      },
+      {
+        "type": "text",
+        "id": "button_label_epic",
+        "label": "Button label"
+      },
+      {
+        "type": "url",
+        "id": "button_link_epic",
+        "label": "Button link"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Epic section",
+        "category": "Home Sections"
+      }
+    ]
+  }
+{% endschema %}

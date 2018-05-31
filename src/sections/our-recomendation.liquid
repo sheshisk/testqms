@@ -1,0 +1,57 @@
+<div class="" id="Collection">
+    {% for block in section.blocks %}
+        {%- assign product = all_products[block.settings.search_our_recomendation] -%}
+
+        <div class="grid__item grid__item--collection-template small--one-half medium-up--one-quarter">
+            <div class="grid-view-item search-item search-recomended-product">
+                <a href="{{ product.url }}" title="{{ product.title | escape }}" class="grid-view-item__link grid-view-item__image-container">  
+                    <div class="result-image grid-view-item__image-wrapper js"> 
+                        <div class="img-wrapper">
+                            <img src="{{ product | img_url:'medium' }}" alt="{{ product.title | escape }}">
+                        </div>  
+                    </div>
+                    <div class="h4 grid-view-item__title">{{ product.title | escape }}</div>
+
+                    <div class="grid-view-item__meta">
+                        <span class="product-price__price">{{ product.price | money }}</span>  
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    {% endfor %}
+</div>
+
+{% schema %}
+  {
+    "name": "Our Recomendation",
+    "class": "index-section our_recomendation",
+    "settings": [
+      {
+        "type": "text",
+        "id": "our_recomendation_title",
+        "label": "Heading",
+        "default": "Our Recomendation"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "text_block",
+        "name": "Products",
+        "settings": [
+          {
+            "type": "product",
+            "id": "search_our_recomendation",
+            "label": "Product"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Our Recomendation",
+        "category": "Product"
+      }
+    ]
+  }
+{% endschema %}

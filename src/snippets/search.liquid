@@ -1,0 +1,18 @@
+<div class="search-overlay medium-down-display-none-imp">
+  <div class="search-overlay__inner">
+    <div class="search-overlay__close js-body-remove-class js-close-clear-search" data-body-class="search-overlay-open">
+            {% include 'icon-close-white' %}
+    </div>
+    <div class="product-search">
+      <form action="/search" method="get" class="search-header search" role="search">
+        <input class="input search-header__input search__input"
+          type="search"
+          name="q"
+          placeholder="{{ 'general.search.placeholder' | t }}"
+          aria-label="{{ 'general.search.placeholder' | t }}">
+      </form>
+    </div>
+  </div>
+</div>
+
+

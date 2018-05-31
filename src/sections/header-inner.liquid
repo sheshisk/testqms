@@ -1,0 +1,39 @@
+
+{% include 'header-desktop-inner' %}
+
+{% schema %}
+{
+    "name": "Header Inner Section",
+    "class": "header",
+    "settings":[
+        {
+            "type":"checkbox",
+            "id":"header_inner_enable",
+            "label":"Enable",
+            "default":  true
+        },
+        {
+            "type": "product",
+            "id": "header_inner_feature_top_product",
+            "label": "Featured Product"
+        },
+        {
+            "type": "product",
+            "id": "header_inner_feature_top_product1",
+            "label": "Featured Product"
+        },
+        {
+            "type":"link_list",
+            "id":"header_inner_link_list_main",
+            "label":"Menu",
+            "info": "Select menu item under which the item will be shown in dropdown"
+        }
+    ],
+    "presets": [
+      {
+        "category": "Header Section",
+        "name": "Header Inner Section"
+      }
+    ]
+}
+{% endschema %}

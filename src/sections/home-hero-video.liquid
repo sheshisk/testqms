@@ -1,0 +1,96 @@
+
+<div class="homepage-video-sec">
+  {% comment %} 
+    Video Section
+  {% endcomment %}
+    <div class="virtualVideo" style="background-image:url('{{ section.settings.home_hero_image | img_url: 'master' }}')">
+      <div class="flex-video responsive-embed widescreen mb30">
+            {% comment %} <div class="video-img hidden-mobile" style="background-image:url('{{ section.settings.home_hero_image | img_url: 'master' }}')"></div> {% endcomment %}
+            <div class="video-img visible-mobile" style="background-image:url('{{ section.settings.home_hero_image_mobile | img_url: 'master' }}')"></div>
+              <noscript>
+                <p>
+                  {{ section.settings.home_hero_image | img_url: '480x480', scale: 2 | img_tag: section.settings.home_hero_image.alt, 'feature-row__image' }}
+                </p>
+              </noscript>
+              <i class="fa fa-play video-icon-img"></i>
+              <span class="iframe-video" style="display: none;">
+                {% if section.settings.home_hero_video_url == blank %}
+                    <span>//www.youtube.com/embed/_9VUPq3SxOc</span>
+                  {% else %}
+                    {% if section.settings.home_hero_video_url.type == "youtube" %}
+                      <span>//www.youtube.com/embed/{{ section.settings.home_hero_video_url.id }}</span>
+                    {% endif %}
+                    {% if section.settings.home_hero_video_url.type == "vimeo" %}
+                      <span>//player.vimeo.com/video/{{ section.settings.home_hero_video_url.id }}</span>
+                    {% endif %}
+                {% endif %}              
+              </span>
+          </a>
+          <div class="video-sec"></div>
+    </div>
+    {% comment %} 
+      Video Title
+    {% endcomment %}
+    <div class="homepage-video-caption">
+        {% if section.settings.home_hero_heading != blank %}
+          <h2>
+              {{section.settings.home_hero_heading}}  
+          </h2>
+        {% endif %}
+        {% if section.settings.home_hero_button_label != blank %}
+          <p class="video-icon watchnow">
+              {{section.settings.home_hero_button_label}}  
+          </p>
+        {% endif %}
+    </div>
+  </div>
+</div>
+                 
+{% schema %}
+  {
+    "name": "Home Hero Video",
+    "class": "hero-video-section",
+    "settings": [
+      {
+            "type": "text",
+            "id": "home_hero_heading",
+            "label": "Home Hero Video Title",
+            "default": "Home Hero Video Title"
+          },
+          
+      {
+        "type": "video_url",
+        "id": "home_hero_video_url",
+        "label": "YouTube or Vimeo link",
+        "accept": ["youtube", "vimeo"]
+      },
+      {
+        "type": "image_picker",
+        "id": "home_hero_image",
+        "label": "Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "home_hero_image_mobile",
+        "label": "Home Hero Image for Mobile"
+      },
+        
+      {
+        "type": "text",
+        "id": "home_hero_button_label",
+        "label": "Home Hero Video Button Text"
+      },
+      {
+        "type": "url",
+        "id": "home_hero_button_link",
+        "label": "Button link"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Home Hero Video",
+        "category": "Home Sections"
+      }
+    ]
+  }
+{% endschema %}

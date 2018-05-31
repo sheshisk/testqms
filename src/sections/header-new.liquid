@@ -1,0 +1,41 @@
+
+{% include 'header-desktop' %}
+
+
+
+{% schema %}
+    {
+        "name": "Header Section",
+        "class": "header",
+        "settings":[
+            {
+                "type":"checkbox",
+                "id":"enable",
+                "label":"Enable",
+                "default":  true
+            },
+            {
+                "type": "product",
+                "id": "feature_top_product",
+                "label": "Featured Product"
+            },
+            {
+                "type": "product",
+                "id": "feature_top_product1",
+                "label": "Featured Product"
+            },
+            {
+                "type":"link_list",
+                "id":"link_list_main",
+                "label":"Menu",
+                "info": "Select menu item under which the item will be shown in dropdown"
+            }
+        ],
+        "presets": [
+        {
+            "category": "Header Section",
+            "name": "Header Section"
+        }
+        ]
+    }
+{% endschema %}

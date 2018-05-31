@@ -1,0 +1,202 @@
+<div class="epic-carousel">
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when 'image' %}
+        <div>
+          {% if block.settings.epic_carousel_image != blank %}
+          <div class="position-relative wave-bottom">
+            <div class="epic-image-carousel">
+              <img class="width-full" id="{{ img_id }}" src="{{ block.settings.epic_carousel_image | img_url: 'master' }}" alt="{{ block.settings.epic_carousel_image.alt | escape }}">
+            </div>
+            <div class="image-caption text-center-both">
+              {% if block.settings.epic_carousel_image_caption != blank %}
+                {{ block.settings.epic_carousel_image_caption }}
+              {% endif %}
+              {% if block.settings.epic_carousel_image_link != blank and block.settings.epic_carousel_image_link_label != blank %}
+                <a href="{{block.settings.epic_carousel_image_link}}">{{block.settings.epic_carousel_image_link_label}}</a>
+              {% endif %}
+            </div>
+          </div>
+          {% else %}
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </div>
+      {% when 'text' %}
+        <div>
+          <div class="epic-item">
+            <span class="epic-item-before">
+              {% include 'slider-wave-before' %}
+            </span>
+            <div class="epic-heading-sec">
+              {% if block.settings.epic_carousel_text_heading != blank %}
+                <h2>{{ block.settings.epic_carousel_text_heading | escape }}</h2>
+              {% endif %}
+              {% if block.settings.epic_carousel_text_content != blank %}
+                {{ block.settings.epic_carousel_text_content }}
+              {% endif %}
+              {% if block.settings.epic_carousel_text_link != blank and block.settings.epic_carousel_text_link_label != blank %}
+                <a href="{{block.settings.epic_carousel_text_link}}">{{block.settings.epic_carousel_text_link_label}}</a>
+              {% endif %}              
+            </div>            
+            <span class="epic-item-after">
+              {% include 'slider-wave-after' %}
+            </span>
+          </div>
+        </div>
+      {% when 'video' %}
+        <div>
+          <div class="homepage-video-sec">
+              <div class="virtualVideo">
+                <div class="flex-video responsive-embed widescreen mb30">
+                    <a href="javascript:void(0);" class="video-icon">
+                        <img id="{{ img_id }}" class="video-img lazyload" src="{{ block.settings.epic_carousel_video_caption_image | img_url: 'master' }}" alt="{{ block.settings.epic_carousel_video_caption_image.alt | escape }}">
+                        <i class="fa fa-play video-icon-img"></i>
+                        <span class="iframe-video" style="display: none;">
+                          {% if section.settings.home_hero_video_url == blank %}
+                              <span>//www.youtube.com/embed/_9VUPq3SxOc</span>
+                            {% else %}
+                              {% if section.settings.home_hero_video_url.type == "youtube" %}
+                                <span>//www.youtube.com/embed/{{ section.settings.home_hero_video_url.id }}</span>
+                              {% endif %}
+                              {% if section.settings.home_hero_video_url.type == "vimeo" %}
+                                <span>//player.vimeo.com/video/{{ section.settings.home_hero_video_url.id }}</span>
+                              {% endif %}
+                          {% endif %}              
+                        </span>
+                    </a>
+                    <div class="video-sec"></div>
+              </div>
+              <div class="homepage-video-caption">
+                  {% if block.settings.epic_carousel_video_caption != blank %}
+                    <h2>
+                    {{ block.settings.epic_carousel_video_caption }}</h2>
+                  {% endif %}
+                  {% if block.settings.epic_carousel_video_button != blank %}
+                    <p class="video-btn-epic video-icon watchnow">{{block.settings.epic_carousel_video_button}}</p>
+                  {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>            
+    {% endcase %}    
+  {% endfor %}
+</div>
+
+{% schema %}
+  {
+    "name": "Epic Carousel",
+    "class": "index-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "epic_carousel_title",
+        "label": "Epic Carousel Title",
+        "default": "Epic Carousel"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "name": "Text",
+        "settings": [
+          {
+            "type": "text",
+            "id": "epic_carousel_text_heading",
+            "label": "Text Carousel Heading",
+            "default": "Talk about your brand"
+          },
+          {
+            "type": "text",
+            "id": "epic_carousel_text_link_label",
+            "label": "Button text",
+            "default": "See More"
+          },
+          {
+            "type": "url",
+            "id": "epic_carousel_text_link",
+            "label": "Button link",
+            "info": "See More About this!"
+          }
+        ]
+      },
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "epic_carousel_image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "epic_carousel_image_caption",
+            "label": "Text",
+            "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+          },
+          {
+            "type": "text",
+            "id": "epic_carousel_image_link_label",
+            "label": "Button text",
+            "default": "See More"
+          },
+          {
+            "type": "url",
+            "id": "epic_carousel_image_link",
+            "label": "Button link",
+            "info": "See More About this!"
+          }
+        ]
+      },
+      {
+        "type": "video",
+        "name": "Video",
+        "settings": [
+          {
+            "type": "video_url",
+            "id": "epic_carousel_video_url",
+            "label": "YouTube or Vimeo link",
+            "accept": ["youtube", "vimeo"]
+          },
+          {
+            "type": "image_picker",
+            "id": "epic_carousel_video_caption_image",
+            "label": "Video Caption Image"
+          },
+          {
+            "type": "text",
+            "id": "epic_carousel_video_caption",
+            "label": "Text",
+            "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+          },
+          {
+            "type": "text",
+            "id": "epic_carousel_video_button",
+            "label": "Text",
+            "default": "Watch now"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Epic Carousel",
+        "category": "Home Sections",
+        "blocks": [
+          {
+            "type": "image"
+          },
+          {
+            "type": "video"
+          },
+          {
+            "type": "text"
+          },
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
